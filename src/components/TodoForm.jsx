@@ -1,41 +1,16 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 
-function TodoForm({ addTodo }) {
+const TodoForm = ({ addTodo, isDarkMode }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [priority, setPriority] = useState('Low');
-  const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError(''); // Reset error message
+    if (!title) return; // Prevent empty title submission
 
-    // Validation for title and description fields
-    if (!title) {
-      setError('Title cannot be empty.');
-      return;
-    }
-
-    if(!description){
-      setError('Description cannot be empty.');
-      return;
-    }
-
-    //validation for the present or future dates only
-    const selectedDate = new Date(dueDate);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Set time to midnight for comparison
-
-    if (!dueDate || selectedDate < today) {
-      setError('Due date must be present or in the future.');
-      return;
-    }
-
-    // If validation passes, add the todo
     addTodo({ title, description, dueDate, priority });
-    // Reset form fields
     setTitle('');
     setDescription('');
     setDueDate('');
@@ -43,63 +18,44 @@ function TodoForm({ addTodo }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <h2 className="text-xl font-bold mb-4">Add Todo</h2>
-      {error && <p className="text-red-500">{error}</p>} 
-      <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2">Title</label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="border border-gray-300 rounded px-3 py-2 w-full"
-          placeholder="Enter task title"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2">Description</label>
-        <input
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="border border-gray-300 rounded px-3 py-2 w-full"
-          placeholder="Enter task description"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2">Due Date</label>
-        <input
-          type="date"
-          value={dueDate}
-          onChange={(e) => setDueDate(e.target.value)}
-          className="border border-gray-300 rounded px-3 py-2 w-full"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2">Priority</label>
-        <select
-          value={priority}
-          onChange={(e) => setPriority(e.target.value)}
-          className="border border-gray-300 rounded px-3 py-2 w-full"
-        >
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-        </select>
-      </div>
+    <form onSubmit={handleSubmit} className={`flex flex-col space-y-4 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}>
+      <input
+        type="text"
+        placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        className={`p-2 rounded border ${isDarkMode ? 'bg-gray-700 border-gray-600 placeholder-gray-400' : 'bg-gray-200 border-gray-400 placeholder-gray-500'}`}
+        required
+      />
+      <textarea
+        placeholder="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        className={`p-2 rounded border ${isDarkMode ? 'bg-gray-700 border-gray-600 placeholder-gray-400' : 'bg-gray-200 border-gray-400 placeholder-gray-500'}`}
+      />
+      <input
+        type="date"
+        value={dueDate}
+        onChange={(e) => setDueDate(e.target.value)}
+        className={`p-2 rounded border ${isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-200 border-gray-400'}`}
+      />
+      <select
+        value={priority}
+        onChange={(e) => setPriority(e.target.value)}
+        className={`p-2 rounded border ${isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-200 border-gray-400'}`}
+      >
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
       <button
         type="submit"
-        className="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600"
+        className={`bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 ${isDarkMode ? 'hover:bg-blue-500' : ''}`}
       >
         Add Task
       </button>
     </form>
   );
-}
+};
 
 export default TodoForm;
-
-// PropTypes
-TodoForm.propTypes = {
-  addTodo: PropTypes.func.isRequired,
-};

@@ -45,7 +45,7 @@ function TodoItem({ todo, toggleComplete, deleteTodo, editTodo }) {
 
   return (
     <li
-      className={`mb-2 mt-4 mr-3 p-4 border-l-4 ${priorityColor} bg-gray-50 shadow-md`}
+      className={`mb-2 mt-4 mr-3 p-4 border-l-4 ${priorityColor} shadow-xl`}
     >
       <div className="flex justify-between items-center">
         <div>
@@ -133,27 +133,27 @@ function TodoItem({ todo, toggleComplete, deleteTodo, editTodo }) {
                 <strong>Priority:</strong> {todo.priority}
               </p>
 
-              <div className="flex space-x-2">
+              <div className="flex space-x-2 mt-2">
                 
                 <button
                   className="bg-yellow-500 text-white rounded px-3 py-1 flex items-center"
                   onClick={handleEdit}
                 >
-                  <MdEdit className="mr-1" />
+                  <MdEdit />
                 </button>
 
                 <button
                   className="bg-green-500 text-white rounded px-3 py-1 flex items-center"
                   onClick={() => toggleComplete(todo.id)}
                 >
-                  {todo.isCompleted ? "Undo" : "Complete"}
+                  {todo.isCompleted ? "Undo" : "Done"}
                 </button>
 
                 <button
                   className="bg-red-500 text-white rounded px-3 py-1 flex items-center"
                   onClick={() => deleteTodo(todo.id)}
                 >
-                  <MdDelete className="mr-1" /> 
+                  <MdDelete /> 
                 </button>
               </div>
             </div>

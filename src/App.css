@@ -3,25 +3,48 @@
 @tailwind utilities;
 
 .app {
-  background-color: #f9fafb; 
-  min-height: 100%; 
-  max-width: 100vh;
-  padding: 45px;
-  margin-left: 40vh;
-  margin-top: 5vh;
-  margin-bottom: 5vh;
+  background-color: #f9fafb; /* Light gray background */
+  min-height: 100vh; /* Full height of the viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 ul {
-  list-style-type: none; 
-  padding: 0; 
+  list-style-type: none; /* Remove default list styles */
+  padding: 0; /* Remove default padding */
 }
 
 .container {
-  background-color: white; 
-  border-radius: 8px; 
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
-  padding: 20px;
-  max-width: 600px;
-  margin: 0 auto; 
+  background-color: rgb(216, 205, 205); /* Background color of the container */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 20px; /* Inner padding */
+  width: 100%; /* Full width */
+  max-width: 600px; /* Maximum width for larger screens */
+  margin: 0 auto; /* Centering the container */
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px; /* Adjust padding for smaller screens */
+  }
+}
+
+/* Dark Mode Styles */
+.bg-gray-900 {
+  background-color: #343333; /* Dark background */
+}
+
+.bg-gray-800 {
+  background-color: #2d2d2d; /* Slightly lighter dark background */
+}
+
+.text-white {
+  color: black; /* White text */
+}
+
+.text-gray-800 {
+  color: #1a1a1a; /* Dark text for light mode */
 }
