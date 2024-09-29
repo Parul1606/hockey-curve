@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const TodoForm = ({ addTodo, isDarkMode }) => {
   const [title, setTitle] = useState('');
@@ -59,3 +60,10 @@ const TodoForm = ({ addTodo, isDarkMode }) => {
 };
 
 export default TodoForm;
+
+
+//required prop-types
+TodoForm.propTypes = {
+  addTodo: PropTypes.func.isRequired,
+  isDarkMode: PropTypes.bool.isRequired,
+};
